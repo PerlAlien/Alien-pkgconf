@@ -12,6 +12,27 @@ use File::Path qw( mkpath );
 my $status_filename = File::Spec->catfile('_alien', 'fetch.json');
 exit if -e $status_filename;
 
+my @dirs = (
+  [ '_alien', 'tar' ],
+  [ '_alien', 'build', 'static' ],
+  [ '_alien', 'build', 'dll' ],
+);
+
+mkpath $_, 0, 0700 for grep { ! -d $_ } map { File::Spec->catdir(@$_) } @dirs;
+
+if(0)
+{
+  # hack to test other parts until a usable version is available
+  # on the website.
+  my $fn  = 'pkgconf-1.0.90.tar.gz';
+  my $dir = '/home/ollisg/dev/pkgconf';
+  system 'cp', "$dir/$fn", "_alien/tar";
+  open my $fh, '>', $status_filename;
+  print $fh encode_json({ filename => "_alien/tar/$fn" });
+  close $status_filename;
+  exit;
+}
+
 my $url = 'http://distfiles.dereferenced.org/pkgconf';
 my $ua = HTTP::Tiny->new;
 
@@ -90,14 +111,6 @@ unless($res->{success})
   print STDERR "reason = ", $res->{reason}, "\n";
   exit 2;
 }
-
-my @dirs = (
-  [ '_alien', 'tar' ],
-  [ '_alien', 'build', 'static' ],
-  [ '_alien', 'build', 'dll' ],
-);
-
-mkpath $_, 0, 0700 for grep { ! -d $_ } map { File::Spec->catdir(@$_) } @dirs;
 
 my $tar_filename = File::Spec->catfile(@{ $dirs[0] }, $filename);
 
