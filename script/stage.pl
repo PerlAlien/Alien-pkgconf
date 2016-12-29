@@ -42,6 +42,25 @@ foreach my $type (qw( dll static ))
     chomp $status{libs};
     $status{install_type} = 'share';
   }
+  elsif($type eq 'dll')
+  {
+    my $dir = File::Spec->catdir($build->{destdir}, @{ $build->{prefix} }, 'dll');
+    my $dh;
+    opendir $dh, $dir;
+    while(my $fn = readdir $dh)
+    {
+      next if $fn =~ /^\.\.?$/;
+      my $path = File::Spec->catfile($dir, $fn);
+      next if -l $path;
+      if($fn =~ /^lib.*\.so/
+      || $fn =~ /\.dll$/
+      || $fn =~ /\.(dylib|bundle)$/)
+      {
+        $status{dll} = $fn;
+      }
+    }
+    closedir $dh;
+  }
 }
 
 {
@@ -86,7 +105,16 @@ sub recurse
       my $sdir = File::Spec->catdir ($share_dir, @$path);
       my $to   = File::Spec->catfile($share_dir, @$path, $fn);
       mkpath $sdir, 0, 0744;
-      cp($from, $to) || die "Copy $from => $to failed $!";
+      
+      if(-l $from)
+      {
+        my $target = readlink $from;
+        symlink $target, $to;
+      }
+      else
+      {
+        cp($from, $to) || die "Copy $from => $to failed $!";
+      }
     }
   }
   closedir $dh;

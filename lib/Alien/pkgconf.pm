@@ -2,6 +2,9 @@ package Alien::pkgconf;
 
 use strict;
 use warnings;
+use JSON::PP ();
+use File::Spec;
+use File::ShareDir ();
 
 our $VERSION = '0.01';
 
@@ -12,13 +15,113 @@ Alien::pkgconf - Discover or download and install pkgconf + libpkgconf
 =head1 SYNOPSIS
 
  use Alien::pkgconf;
+ 
+ my $cflags = Alien::pkgconf->cflags;
+ my $libs   = Alien::pkgconf->libs;
+
+=head1 DESCRIPTION
+
+This module provides you with the information that you need to invoke
+C<pkgconf> or link against C<libpkgconf>.  It isn't intended to be
+used directly, but rather to provide the necessary package by a CPAN
+module that needs C<libpkgconf>, such as L<PkgConfig::LibPkgConf>.
 
 =cut
 
-sub cflags       {}
-sub libs         {}
-sub dynamic_libs {}
-sub bin_dir      {}
+sub _dist_dir
+{
+  File::Spec->catdir(File::ShareDir::dist_dir('Alien-pkgconf'), @_);
+}
+
+sub _dist_file
+{
+  File::Spec->catfile(File::ShareDir::dist_dir('Alien-pkgconf'), @_);
+}
+
+my $config;
+sub _config
+{
+  $config ||= do {
+    my $filename = _dist_file('status.json');
+    my $fh;
+    open $fh, '<', $filename;
+    my $json = JSON::PP::decode_json(do { local $/; <$fh> });
+    close $fh;
+    $json;
+  };
+}
+
+=head1 METHODS
+
+=head2 cflags
+
+ my $cflags = Alien::pkgconf->cflags;
+
+The compiler flags for compiling against C<libpkgconf>.
+
+=cut
+
+sub cflags
+{
+  _config->{cflags};
+}
+
+=head2 libs
+
+ my $libs = Alien::pkgconf->libs;
+
+The linker flags for linking against C<libpkgconf>.
+
+=cut
+
+sub libs
+{
+  _config->{libs};
+}
+
+=head2 dynamic_libs
+
+ my($dll) = Alien::pkgconf->dynamic_libs;
+
+The C<.so>, C<.dll> or <.dynlib> shared or dynamic library
+which can be used via FFI.
+
+=cut
+
+sub dynamic_libs
+{
+  (_dist_file('dll', _config->{dll}));
+}
+
+=head2 bin_dir
+
+ my($dir) = Alien::pkgconf->bin_dir;
+
+The directory where you can find C<pkgconf>.  If it is not
+already in the C<PATH>.  Adding this to C<PATH> should make
+tools that require C<pkgconf> work.
+
+=cut
+
+sub bin_dir
+{
+  (_dist_dir 'bin');
+}
+
+=head2 install_type
+
+ my $type = Alien::pkgconf->install_type;
+
+The type of install, should be either C<share> or C<system>.
+
+=cut
+
+sub install_type
+{
+  _config->{install_type};
+}
+
+sub alien_helper { {} }
 
 1;
 

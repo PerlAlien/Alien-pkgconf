@@ -95,7 +95,7 @@ alien_stage _alien/stage.json: _alien/build_dll.json _alien/build_static.json
 alien_clean:
 	$(FULLPERL) script/clean.pl
 
-pure_all :: alien_stage
+pure_all :: _alien/stage.json
 
 realclean purge :: alien_clean
 
