@@ -27,6 +27,7 @@ my %args = (
   TEST_REQUIRES      => {
     'Test2'        => '1.302073',
     'Test2::Suite' => '0.000065',
+    'Test::Alien'  => '0.07',
   },
   BUILD_REQUIRES => {
     'HTTP::Tiny'   => '0.044',
