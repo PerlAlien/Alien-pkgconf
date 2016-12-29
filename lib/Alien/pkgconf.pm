@@ -90,7 +90,10 @@ which can be used via FFI.
 
 sub dynamic_libs
 {
-  (_dist_file('dll', _config->{dll}));
+  my($class) = @_;
+  $class->install_type eq 'share'
+  ? (_dist_file('dll', _config->{dll}))
+  : (_config->{dll});
 }
 
 =head2 bin_dir
@@ -105,7 +108,10 @@ tools that require C<pkgconf> work.
 
 sub bin_dir
 {
-  (_dist_dir 'bin');
+  my($class) = @_;
+  $class->install_type eq 'share'
+  ? (_dist_dir 'bin')
+  : ();
 }
 
 =head2 install_type
