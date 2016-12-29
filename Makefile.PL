@@ -29,8 +29,9 @@ my %args = (
     'Test2::Suite' => '0.000065',
   },
   BUILD_REQUIRES => {
-    'HTTP::Tiny' => '0.044',
+    'HTTP::Tiny'   => '0.044',
     'Archive::Tar' => '2.24',
+    'JSON::PP'     => '2.27400',
   },
   PREREQ_PM => {
   },
@@ -66,3 +67,37 @@ delete $args{CONFIGURE_REQUIRES}
   unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
 WriteMakefile(%args);
+
+sub MY::postamble {
+
+  <<'EOF';
+
+alien_probe _alien/probe.json:
+	$(FULLPERL) script/probe.pl $(INSTALLARCHLIB)
+
+alien_fetch _alien/fetch.json:
+	$(FULLPERL) script/fetch.pl
+
+alien_extract _alien/extract.json: _alien/fetch.json
+	$(FULLPERL) script/extract.pl
+
+alien_build: _alien/build_dll.json _alien/build_static.json
+
+alien_build_dll _alien/build_dll.json : _alien/extract.json _alien/probe.json
+	$(FULLPERL) script/build.pl dll
+
+alien_build_static _alien/build_static.json : _alien/extract.json _alien/probe.json
+	$(FULLPERL) script/build.pl static
+
+alien_stage _alien/stage.json: _alien/build_dll.json _alien/build_static.json
+	$(FULLPERL) script/stage.pl
+
+alien_clean:
+	$(FULLPERL) script/clean.pl
+
+pure_all :: alien_stage
+
+realclean purge :: alien_clean
+
+EOF
+}
