@@ -46,9 +46,6 @@ my %args = (
     }
   },
   
-  clean => {
-    # !!??
-  }
 );
 
 my %fallback = (
@@ -66,11 +63,64 @@ unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
 delete $args{CONFIGURE_REQUIRES}
   unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
+my($dll) = eval {
+  require FFI::CheckLib;
+  FFI::CheckLib::find_lib_or_die(
+    lib => 'pkgconf',
+  );
+};
+
+my $install_type = 'share';
+
+eval {
+
+  die "ALIEN_FORCE" if $ENV{ALIEN_FORCE};
+  die "ALIEN_INSTALL_TYPE" if defined $ENV{ALIEN_INSTALL_TYPE} 
+                           && $ENV{ALIEN_INSTALL_TYPE} ne 'share';
+
+  system 'pkgconf', '--exists', 'libpkgconf';
+  die "no pkgconf" if $?;
+  my $cflags = `pkgconf --cflags libpkgconf`;
+  die "getting cflags" if $?;
+  chomp $cflags;
+  my $libs   = `pkgconf --libs libpkgconf`;
+  die "getting libs" if $?;
+  chomp $libs;
+
+  require File::Spec;
+  require JSON::PP;
+  my $status_filename = File::Spec->catfile('_alien', 'stage.json');
+  mkdir '_alien' unless -d '_alien';
+  open my $fh, '>', $status_filename;
+  print $fh JSON::PP::encode_json({
+    cflags       => $cflags,
+    libs         => $libs,
+    install_type => 'system',
+    ($dll ? (dll => $dll ) : ()),
+  });
+  close $fh;
+  
+  $install_type = 'system';
+
+};
+
+if(defined $ENV{ALIEN_INSTALL_TYPE})
+{
+  if($ENV{ALIEN_INSTALL_TYPE} ne $install_type)
+  {
+    die "requested install type $ENV{ALIEN_INSTALL_TYPE}, but could not be accomidated";
+  }
+}
+
+print "install type: $install_type\n";
+
 WriteMakefile(%args);
 
 sub MY::postamble {
 
-  <<'EOF';
+$install_type eq 'share'
+
+? <<'SHARE_INSTALL'
 
 alien_probe _alien/probe.json:
 	$(FULLPERL) script/probe.pl $(INSTALLARCHLIB)
@@ -99,5 +149,20 @@ pure_all :: _alien/stage.json
 
 realclean purge :: alien_clean
 
-EOF
+SHARE_INSTALL
+
+: <<'SYSTEM_INSTALL';
+
+alien_system _alien/system.json : _alien/stage.json
+	$(FULLPERL) script/system.pl
+
+alien_clean:
+	$(FULLPERL) script/clean.pl
+
+pure_all :: _alien/system.json
+
+realclean purge :: alien_clean
+
+SYSTEM_INSTALL
+
 }
