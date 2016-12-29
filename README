@@ -1,0 +1,23 @@
+NAME
+    Alien::pkgconf - Discover or download and install pkgconf + libpkgconf
+
+SYNOPSIS
+     use Alien::pkgconf;
+
+SEE ALSO
+    PkgConfig::LibPkgConf
+
+ACKNOWLEDGMENTS
+    Thanks to the "pkgconf" developers for their efforts:
+
+    <https://github.com/pkgconf/pkgconf/graphs/contributors>
+
+AUTHOR
+    Graham Ollis
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2016 Graham Ollis.
+
+    This is free software; you may redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+

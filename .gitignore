@@ -1,0 +1,7 @@
+/Makefile
+/MYMETA.*
+/blib
+/Alien-pkgconf-*
+/_alien
+*.bak
+/pm_to_blib
