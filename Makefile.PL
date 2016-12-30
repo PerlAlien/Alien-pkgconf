@@ -10,6 +10,7 @@ BEGIN {
 }
 
 use ExtUtils::MakeMaker;
+use File::Path qw( rmtree );
 use Config;
 
 my %args = (
@@ -73,11 +74,15 @@ my($dll) = eval {
 
 my $install_type = 'share';
 
+
+
+rmtree '_alien', 0, 0 if -d '_alien';
+
 eval {
 
   die "ALIEN_FORCE" if $ENV{ALIEN_FORCE};
   die "ALIEN_INSTALL_TYPE" if defined $ENV{ALIEN_INSTALL_TYPE} 
-                           && $ENV{ALIEN_INSTALL_TYPE} ne 'share';
+                           && $ENV{ALIEN_INSTALL_TYPE} eq 'share';
 
   system 'pkgconf', '--atleast-version=1.0.90', 'libpkgconf';
   die "no pkgconf" if $?;
