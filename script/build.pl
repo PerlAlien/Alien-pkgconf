@@ -47,6 +47,7 @@ sub run
 
 my @prefix = @{ $probe->{prefix} };
 my @configure_flags = (
+  '--with-pic',
   '--prefix=' . File::Spec->catdir(File::Spec->rootdir, @prefix),
   '--with-pkg-config-dir='    .  join($Config{path_sep}, @{ $probe->{pkg_config_dir}     }),
   '--with-system_libdir='     .  join($Config{path_sep}, @{ $probe->{system_libdir}      }),
