@@ -1,10 +1,12 @@
 language: perl
 
+before_install:
+  - export PATH=/tmp/pkgconf/bin:$PATH
+  - export ALIEN_PKGCONF_TARBALL=/tmp/pkgconf/src/pkgconf.tar.gz
+
 install:
-  - mkdir /tmp/pkgconf
-  - git clone https://github.com/pkgconf/pkgconf.git /tmp/pkgconf/src
-  - bash -c 'cd /tmp/pkgconf/src; ./autogen.sh && ./configure --prefix=/tmp/pkgconf --with-pic --disable-shared && make && make install'
-  - env PKG_CONFIG_PATH=/tmp/pkgconf/lib/pkgconfig cpanm --installdeps -n -v .
+  - ./maint/travis
+  - cpanm --installdeps -n -v .
 
 perl:
   - "5.8"
@@ -18,6 +20,10 @@ perl:
   - "5.24"
   
 script:
-  - env PKG_CONFIG_PATH=/tmp/pkgconf/lib/pkgconfig perl Makefile.PL
+  - perl Makefile.PL
   - make
   - make test TEST_VERBOSE=1
+
+env:
+  - ALIEN_INSTALL_TYPE=system
+  - ALIEN_INSTALL_TYPE=share

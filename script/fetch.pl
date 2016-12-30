@@ -27,7 +27,9 @@ if($ENV{ALIEN_PKGCONF_TARBALL})
   # on the website.
   my $fn  = basename $ENV{ALIEN_PKGCONF_TARBALL};
   my $dir = dirname $ENV{ALIEN_PKGCONF_TARBALL};
-  system 'cp', "$dir/$fn", "_alien/tar";
+  print "fetch file://localhost/$ENV{ALIEN_PKGCONF_TARBALL}\n";
+  print "write _alien/tar/$fn";
+  system 'cp', "$dir/$fn", "_alien/tar/$fn";
   open my $fh, '>', $status_filename;
   print $fh encode_json({ filename => "_alien/tar/$fn" });
   close $status_filename;
