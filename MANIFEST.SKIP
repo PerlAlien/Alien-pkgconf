@@ -57,4 +57,4 @@
 \b_alien
 
 # Avoid archives of this distribution
-\bPkgConfig-LibPkgConf-[\d\.\_]+
+\bAlien-pkgconf-[\d\.\_]+
