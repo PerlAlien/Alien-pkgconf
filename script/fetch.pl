@@ -4,6 +4,7 @@ use HTTP::Tiny;
 use JSON::PP qw( encode_json );
 use File::Spec;
 use File::Path qw( mkpath );
+use File::Basename qw( dirname basename );
 
 # this is somewhat brittle, but is low on dependencies.
 # it is very specific to pkgconf, and reuse only at your
@@ -20,12 +21,12 @@ my @dirs = (
 
 mkpath $_, 0, 0700 for grep { ! -d $_ } map { File::Spec->catdir(@$_) } @dirs;
 
-if(0)
+if($ENV{ALIEN_PKGCONF_TARBALL})
 {
   # hack to test other parts until a usable version is available
   # on the website.
-  my $fn  = 'pkgconf-1.0.90.tar.gz';
-  my $dir = '/home/ollisg/dev/pkgconf';
+  my $fn  = basename $ENV{ALIEN_PKGCONF_TARBALL};
+  my $dir = dirname $ENV{ALIEN_PKGCONF_TARBALL};
   system 'cp', "$dir/$fn", "_alien/tar";
   open my $fh, '>', $status_filename;
   print $fh encode_json({ filename => "_alien/tar/$fn" });
