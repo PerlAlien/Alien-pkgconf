@@ -93,6 +93,9 @@ eval {
   my $libs   = `pkgconf --libs libpkgconf`;
   die "getting libs" if $?;
   chomp $libs;
+  my $version = `pkgconf --modversion libpkgconf`;
+  die "getting version" if $?;
+  chomp $version;
 
   require File::Spec;
   require JSON::PP;
@@ -103,6 +106,7 @@ eval {
     cflags       => $cflags,
     libs         => $libs,
     install_type => 'system',
+    version      => $version,
     ($dll ? (dll => $dll ) : ()),
   });
   close $fh;

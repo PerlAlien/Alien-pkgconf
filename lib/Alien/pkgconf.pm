@@ -96,6 +96,19 @@ sub dynamic_libs
   : (_config->{dll});
 }
 
+=head2 version
+
+ my $version = Alien::pkgconf->version;
+
+The C<libpkgconf> version.
+
+=cut
+
+sub version
+{
+  _config->{version};
+}
+
 =head2 bin_dir
 
  my($dir) = Alien::pkgconf->bin_dir;

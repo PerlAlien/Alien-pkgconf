@@ -40,6 +40,9 @@ foreach my $type (qw( dll static ))
     $status{libs}   = `$pkgconf --libs   libpkgconf`;
     die "unable to probe for libs" if $?;
     chomp $status{libs};
+    $status{version} = `$pkgconf --modversion libpkgconf`;
+    die "unable to probe for version" if $?;
+    chomp $status{version};
     $status{install_type} = 'share';
   }
   elsif($type eq 'dll')
