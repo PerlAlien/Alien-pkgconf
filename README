@@ -30,6 +30,11 @@ METHODS
     The ".so", ".dll" or <.dynlib> shared or dynamic library which can be
     used via FFI.
 
+  version
+     my $version = Alien::pkgconf->version;
+
+    The "libpkgconf" version.
+
   bin_dir
      my($dir) = Alien::pkgconf->bin_dir;
 
