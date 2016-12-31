@@ -24,6 +24,7 @@ my %args = (
   
   CONFIGURE_REQUIRES => {
     'ExtUtils::MakeMaker' => 0,
+    'JSON::PP'            => '2.27400',
   },
   TEST_REQUIRES      => {
     'Test2'        => '1.302073',
@@ -46,25 +47,11 @@ my %args = (
       bugtracker => "http://github.com/plicease/Alien-pkgconf/issues",
       x_MailingList => "https://groups.google.com/forum/#!forum/perl5-alien",
       x_IRC => "irc://irc.perl.org/#native",
-    }
+    },
+    dynamic_config => 1,
   },
   
 );
-
-my %fallback = (
-  %{ $args{TEST_REQUIRES} },
-  %{ $args{BUILD_REQUIRES} },
-  %{ $args{PREREQ_PM} },
-);
-
-unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
-  $args{PREREQ_PM} = \%fallback;
-  delete $args{TEST_REQUIRES};
-  delete $args{BUILD_REQUIRES};
-}
-
-delete $args{CONFIGURE_REQUIRES}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
 my($dll) = eval {
   require FFI::CheckLib;
@@ -125,6 +112,26 @@ if(defined $ENV{ALIEN_INSTALL_TYPE})
 }
 
 print "install type: $install_type\n";
+
+if($install_type eq 'system')
+{
+  delete $args{BUILD_REQUIRES}->{$_} for qw( HTTP::Tiny Archive::Tar IO::Uncompress::UnXz );
+}
+
+my %fallback = (
+  %{ $args{TEST_REQUIRES} },
+  %{ $args{BUILD_REQUIRES} },
+  %{ $args{PREREQ_PM} },
+);
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  $args{PREREQ_PM} = \%fallback;
+  delete $args{TEST_REQUIRES};
+  delete $args{BUILD_REQUIRES};
+}
+
+delete $args{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
 WriteMakefile(%args);
 
