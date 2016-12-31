@@ -75,8 +75,6 @@ my($dll) = eval {
 
 my $install_type = 'share';
 
-
-
 rmtree '_alien', 0, 0 if -d '_alien';
 
 eval {
