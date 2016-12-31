@@ -1,5 +1,10 @@
 language: perl
 
+addons:
+  apt:
+    packages:
+      - liblzma-dev
+
 before_install:
   - export PATH=/tmp/pkgconf/bin:$PATH
   - export ALIEN_PKGCONF_TARBALL=/tmp/pkgconf/src/pkgconf.tar.gz
