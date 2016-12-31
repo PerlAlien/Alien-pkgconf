@@ -115,10 +115,13 @@ eval {
 
 };
 
+my $error = $@;
+
 if(defined $ENV{ALIEN_INSTALL_TYPE})
 {
   if($ENV{ALIEN_INSTALL_TYPE} ne $install_type)
   {
+    warn $error if $error;
     die "requested install type $ENV{ALIEN_INSTALL_TYPE}, but could not be accomidated";
   }
 }
