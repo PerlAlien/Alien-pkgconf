@@ -181,6 +181,20 @@ elsif($^O =~ /^(gnukfreebsd|linux)$/ && -r "/etc/debian_version")
   }
 }
 
+elsif($^O eq 'freebsd')
+{
+  $status{pkg_config_dir} = [
+    "/usr/local/libdata/pkgconfig",
+    "/usr/libdata/pkgconfig",
+  ];
+  $status{system_libdir}     = [
+    "/usr/lib",
+  ];
+  $status{system_includedir} = [
+    "/usr/include",
+  ];
+}
+
 else
 {
   die "do not know enough about this OS to probe for correct paths";

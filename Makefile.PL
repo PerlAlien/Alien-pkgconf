@@ -31,9 +31,10 @@ my %args = (
     'Test::Alien'  => '0.08',
   },
   BUILD_REQUIRES => {
-    'HTTP::Tiny'   => '0.044',
-    'Archive::Tar' => '2.24',
-    'JSON::PP'     => '2.27400',
+    'HTTP::Tiny'           => '0.044',
+    'Archive::Tar'         => '2.24',
+    'JSON::PP'             => '2.27400',
+    'IO::Uncompress::UnXz' => '2.070',
   },
   PREREQ_PM => {
   },

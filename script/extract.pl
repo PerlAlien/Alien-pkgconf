@@ -16,6 +16,18 @@ my $tar_filename = do {
   $json->{filename};
 };
 
+if($tar_filename =~ /\.xz$/)
+{
+  # This module has a big warning not to use it in
+  # production code.  So.  Yeah don't do that.
+  require IO::Uncompress::UnXz;
+  my $new = $tar_filename;
+  $new =~ s/\.xz$//;
+  IO::Uncompress::UnXz::unxz($tar_filename, $new);
+  die "unable to decompress $tar_filename" unless -f $new;
+  $tar_filename = $new;
+}
+
 my $tar = Archive::Tar->new;
 $tar->read($tar_filename);
 
