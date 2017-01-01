@@ -28,6 +28,3 @@ int
 pkgconf_compare_version(a,b)
     const char *a;
     const char *b;
-
-
-               
