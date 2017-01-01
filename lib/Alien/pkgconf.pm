@@ -66,7 +66,7 @@ sub cflags
   my($class) = @_;
   $class->install_type eq 'share'
   # may induce duplicates :/
-  ? "-I@{[ _dist_dir 'include' ]} @{[ _config->{cflags} ]}"
+  ? "-I@{[ _dist_dir 'include', 'pkgconf' ]} @{[ _config->{cflags} ]}"
   : _config->{cflags};
 }
 
