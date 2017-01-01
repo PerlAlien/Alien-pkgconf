@@ -12,6 +12,9 @@ diag "_dist_dir = ", Alien::pkgconf::_dist_dir();
 
 diag Dumper( Alien::pkgconf::_config() );
 
+
+diag "bin_dir=$_" for Alien::pkgconf->bin_dir;
+
 diag '';
 diag '';
 
