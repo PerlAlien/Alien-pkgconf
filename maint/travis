@@ -43,8 +43,8 @@ elsif($ENV{ALIEN_INSTALL_TYPE} eq 'system')
     '--with-pic', 
     '--disable-shared',
     '--with-pkg-config-dir=/tmp/pkgconf/lib/pkgconfig',
-    '--system-libdir=/usr/lib',
-    '--system-system-includedir=/usr/include';
+    '--with-system-libdir=/usr/lib',
+    '--with-system-system-includedir=/usr/include';
   run 'make';
   run 'make', 'install';
 }
