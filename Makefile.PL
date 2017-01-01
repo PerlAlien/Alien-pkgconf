@@ -142,7 +142,7 @@ $install_type eq 'share'
 ? <<'SHARE_INSTALL'
 
 alien_probe _alien/probe.json:
-	$(FULLPERL) script/probe.pl $(INSTALLARCHLIB)
+	$(FULLPERL) script/probe.pl $(INSTALLDIRS) $(INSTALLARCHLIB) $(INSTALLSITEARCH) $(INSTALLVENDORARCH)
 
 alien_fetch _alien/fetch.json:
 	$(FULLPERL) script/fetch.pl
