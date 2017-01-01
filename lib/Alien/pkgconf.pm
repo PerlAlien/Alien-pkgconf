@@ -83,7 +83,7 @@ sub libs
   my($class) = @_;
   $class->install_type eq 'share'
   # may induce duplicates :/
-  ? "-I@{[ _dist_dir 'lib' ]} @{[ _config->{libs} ]}"
+  ? "-L@{[ _dist_dir 'lib' ]} @{[ _config->{libs} ]}"
   : _config->{libs};
 }
 
