@@ -38,7 +38,13 @@ elsif($ENV{ALIEN_INSTALL_TYPE} eq 'system')
 {
   chdir '/tmp/pkgconf/src/';
   run './autogen.sh';
-  run './configure', '--prefix=/tmp/pkgconf', '--with-pic', '--disable-shared', '--with-pkg-config-dir=/tmp/pkgconf/lib/pkgconfig';
+  run './configure',
+    '--prefix=/tmp/pkgconf', 
+    '--with-pic', 
+    '--disable-shared',
+    '--with-pkg-config-dir=/tmp/pkgconf/lib/pkgconfig',
+    '--system-libdir=/usr/lib',
+    '--system-system-includedir=/usr/include';
   run 'make';
   run 'make', 'install';
 }
