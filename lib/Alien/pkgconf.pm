@@ -65,6 +65,7 @@ sub cflags
 {
   my($class) = @_;
   $class->install_type eq 'share'
+  # may induce duplicates :/
   ? "-I@{[ _dist_dir 'include' ]} @{[ _config->{cflags} ]}"
   : _config->{cflags};
 }
@@ -81,6 +82,7 @@ sub libs
 {
   my($class) = @_;
   $class->install_type eq 'share'
+  # may induce duplicates :/
   ? "-I@{[ _dist_dir 'lib' ]} @{[ _config->{libs} ]}"
   : _config->{libs};
 }
