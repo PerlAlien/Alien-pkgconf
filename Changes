@@ -1,5 +1,6 @@
 Revision history for Alien-pkgconf
 
+0.02 2017-01-01 10:36:16 -0500
   - Handle relocations
   - Fix install of site and vendor installs
   - Add a Test::Alien XS test
