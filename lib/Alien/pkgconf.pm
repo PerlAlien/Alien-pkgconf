@@ -63,7 +63,10 @@ The compiler flags for compiling against C<libpkgconf>.
 
 sub cflags
 {
-  _config->{cflags};
+  my($class) = @_;
+  $class->install_type eq 'share'
+  ? "-I@{[ _dist_dir 'include' ]} @{[ _config->{cflags} ]}"
+  : _config->{cflags};
 }
 
 =head2 libs
@@ -76,7 +79,10 @@ The linker flags for linking against C<libpkgconf>.
 
 sub libs
 {
-  _config->{libs};
+  my($class) = @_;
+  $class->install_type eq 'share'
+  ? "-I@{[ _dist_dir 'lib' ]} @{[ _config->{libs} ]}"
+  : _config->{libs};
 }
 
 =head2 dynamic_libs
