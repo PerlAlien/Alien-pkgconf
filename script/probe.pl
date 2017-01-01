@@ -202,6 +202,7 @@ else
 
 unshift @{ $status{pkg_config_dir} }, File::Spec->catdir(@prefix, 'lib', 'pkgconfig');
 
+mkdir '_alien' unless -d '_alien';
 open my $fh, '>', $status_filename;
 print $fh encode_json(\%status);
 close $fh;
