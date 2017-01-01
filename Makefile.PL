@@ -38,6 +38,7 @@ my %args = (
     'IO::Uncompress::UnXz' => '2.070',
   },
   PREREQ_PM => {
+    'File::ShareDir' => '1.102',
   },
   
   META_MERGE => {
