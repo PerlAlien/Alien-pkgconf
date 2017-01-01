@@ -9,7 +9,7 @@ exit if -e $status_filename;
 
 my $archlib = do {
   my($type, $perl, $site, $vendor) = @ARGV;
-  die "invoke from makefile" unless $type && $perl && $site && $vendor;
+  die "invoke from makefile" unless $type && $perl && $site;
   $type eq 'perl' ? $perl : $type eq 'site' ? $site : $type eq 'vendor' ? $vendor : die "illegal INSTALLDIRS ($type)";
 };
 my @prefix = ($archlib, qw( auto share dist Alien-pkgconf ));
