@@ -117,6 +117,8 @@ sub recurse
       else
       {
         cp($from, $to) || die "Copy $from => $to failed $!";
+        # Perl 5.8 and 5.10 cp doesn't preserve perms apparently
+        eval { chmod 0755, $to } if -x $from && $] < 5.012;
       }
     }
   }
