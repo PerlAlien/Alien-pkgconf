@@ -13,11 +13,11 @@ unless(defined $type && $type =~ /^(static|dll)$/)
   exit 2;
 }
 
-my $status_filename = File::Spec->catfile('_alien', "build_$type.json");
+my $status_filename = File::Spec->catfile('_alien', "04build_$type.json");
 exit if -e $status_filename;
 
 my $src_dir = do {
-  my $fn = File::Spec->catfile('_alien', 'extract.json');
+  my $fn = File::Spec->catfile('_alien', '03extract.json');
   open my $fh, '<', $fn;
   my $json = decode_json(do {local $/; <$fh> });
   close $fn;
@@ -25,7 +25,7 @@ my $src_dir = do {
 };
 
 my $probe = do {
-  my $fn = File::Spec->catfile('_alien', 'probe.json');
+  my $fn = File::Spec->catfile('_alien', '01probe.json');
   open my $fh, '<', $fn;
   my $json = decode_json(do {local $/; <$fh> });
   close $fn;

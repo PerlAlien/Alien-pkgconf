@@ -5,11 +5,11 @@ use Archive::Tar;
 use File::Path qw( rmtree mkpath );
 use JSON::PP qw( encode_json decode_json );
 
-my $status_filename = File::Spec->catfile('_alien', 'extract.json');
+my $status_filename = File::Spec->catfile('_alien', '03extract.json');
 exit if -e $status_filename;
 
 my $tar_filename = do {
-  my $fn = File::Spec->catfile('_alien', 'fetch.json');
+  my $fn = File::Spec->catfile('_alien', '02fetch.json');
   open my $fh, '<', $fn;
   my $json = decode_json(do {local $/; <$fh> });
   close $fn;

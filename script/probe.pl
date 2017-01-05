@@ -4,7 +4,7 @@ use Config;
 use File::Spec;
 use JSON::PP qw( encode_json decode_json );
 
-my $status_filename = File::Spec->catfile('_alien', 'probe.json');
+my $status_filename = File::Spec->catfile('_alien', '01probe.json');
 exit if -e $status_filename;
 
 my $archlib = do {

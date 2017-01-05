@@ -4,7 +4,7 @@ use File::Spec;
 use File::Copy qw( copy );
 use File::Path qw( mkpath );
 
-my $status_filename = File::Spec->catfile('_alien', 'system.json');
+my $status_filename = File::Spec->catfile('_alien', '00system.json');
 exit if -e $status_filename;
 
 my $share_dir = File::Spec->catdir(qw( blib lib auto share dist Alien-pkgconf ));
@@ -19,13 +19,13 @@ mkpath $share_dir, 0, 0744 unless -d $share_dir;
   close $fh;
 }
 
-my $from = File::Spec->catfile(qw( _alien stage.json ));
+my $from = File::Spec->catfile(qw( _alien 05stage.json ));
 my $to   = File::Spec->catfile($share_dir, 'status.json');
 
 print "write $to\n";
 copy($from, $to) || die "unable to copy $from => $to $!";
 
-$to   = File::Spec->catfile(qw( _alien system.json ));
+$to   = File::Spec->catfile(qw( _alien 00system.json ));
 
 copy($from, $to) || die "unable to copy $from => $to $!";
 

@@ -5,7 +5,7 @@ use JSON::PP qw( encode_json decode_json );
 use File::Copy qw( cp );
 use File::Path qw( mkpath );
 
-my $status_filename = File::Spec->catfile('_alien', 'stage.json');
+my $status_filename = File::Spec->catfile('_alien', '05stage.json');
 exit if -e $status_filename;
 
 my %status;
@@ -15,7 +15,7 @@ my $share_dir = File::Spec->catdir(qw( blib lib auto share dist Alien-pkgconf ))
 foreach my $type (qw( dll static ))
 {
   my $build = do {
-    my $fn = File::Spec->catfile('_alien', "build_$type.json");
+    my $fn = File::Spec->catfile('_alien', "04build_$type.json");
     open my $fh, '<', $fn;
     my $json = decode_json(do { local $/; <$fh> });
     close $fh;

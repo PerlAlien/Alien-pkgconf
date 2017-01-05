@@ -10,7 +10,7 @@ use File::Basename qw( dirname basename );
 # it is very specific to pkgconf, and reuse only at your
 # own risk!
 
-my $status_filename = File::Spec->catfile('_alien', 'fetch.json');
+my $status_filename = File::Spec->catfile('_alien', '02fetch.json');
 exit if -e $status_filename;
 
 my @dirs = (

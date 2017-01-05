@@ -85,7 +85,7 @@ eval {
 
   require File::Spec;
   require JSON::PP;
-  my $status_filename = File::Spec->catfile('_alien', 'stage.json');
+  my $status_filename = File::Spec->catfile('_alien', '05stage.json');
   mkdir '_alien' unless -d '_alien';
   open my $fh, '>', $status_filename;
   print $fh JSON::PP::encode_json({
@@ -142,30 +142,30 @@ $install_type eq 'share'
 
 ? <<'SHARE_INSTALL'
 
-alien_probe _alien/probe.json:
+alien_probe _alien/01probe.json:
 	$(FULLPERL) script/probe.pl $(INSTALLDIRS) $(INSTALLARCHLIB) $(INSTALLSITEARCH) $(INSTALLVENDORARCH)
 
-alien_fetch _alien/fetch.json:
+alien_fetch _alien/02fetch.json:
 	$(FULLPERL) script/fetch.pl
 
-alien_extract _alien/extract.json: _alien/fetch.json
+alien_extract _alien/03extract.json: _alien/02fetch.json
 	$(FULLPERL) script/extract.pl
 
-alien_build: _alien/build_dll.json _alien/build_static.json
+alien_build: _alien/04build_dll.json _alien/04build_static.json
 
-alien_build_dll _alien/build_dll.json : _alien/extract.json _alien/probe.json
+alien_build_dll _alien/04build_dll.json : _alien/03extract.json _alien/01probe.json
 	$(FULLPERL) script/build.pl dll
 
-alien_build_static _alien/build_static.json : _alien/extract.json _alien/probe.json
+alien_build_static _alien/04build_static.json : _alien/03extract.json _alien/01probe.json
 	$(FULLPERL) script/build.pl static
 
-alien_stage _alien/stage.json: _alien/build_dll.json _alien/build_static.json
+alien_stage _alien/05stage.json: _alien/04build_dll.json _alien/04build_static.json
 	$(FULLPERL) script/stage.pl
 
 alien_clean:
 	$(FULLPERL) script/clean.pl
 
-pure_all :: _alien/stage.json
+pure_all :: _alien/05stage.json
 
 realclean purge :: alien_clean
 
@@ -173,13 +173,13 @@ SHARE_INSTALL
 
 : <<'SYSTEM_INSTALL';
 
-alien_system _alien/system.json : _alien/stage.json
+alien_system _alien/00system.json : _alien/05stage.json
 	$(FULLPERL) script/system.pl
 
 alien_clean:
 	$(FULLPERL) script/clean.pl
 
-pure_all :: _alien/system.json
+pure_all :: _alien/00system.json
 
 realclean purge :: alien_clean
 
