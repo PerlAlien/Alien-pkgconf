@@ -24,6 +24,9 @@ my %status = (
 
 # These are based on experience in development of PkgConfig.pm:
 
+$status{system_libdir}     = ['/usr/lib'];
+$status{system_includedir} = ['/usr/include'];
+
 if($^O eq 'solaris')
 {
   if($Config{ptrsize} == 8)
@@ -71,7 +74,6 @@ elsif($^O eq 'linux' && -f '/etc/gentoo-release')
       /usr/share/pkgconfig
     )];
     $status{system_libdir}     = ['/usr/lib64'];
-    $status{system_includedir} = ['/usr/include'];
   }
   else
   {
@@ -79,8 +81,6 @@ elsif($^O eq 'linux' && -f '/etc/gentoo-release')
       /usr/lib/pkgconfig
       /usr/share/pkgconfig
     )];
-    $status{system_libdir}     = ['/usr/lib'];
-    $status{system_includedir} = ['/usr/include'];
   }
 }
 
@@ -190,12 +190,6 @@ elsif($^O eq 'freebsd')
   $status{pkg_config_dir} = [
     "/usr/local/libdata/pkgconfig",
     "/usr/libdata/pkgconfig",
-  ];
-  $status{system_libdir}     = [
-    "/usr/lib",
-  ];
-  $status{system_includedir} = [
-    "/usr/include",
   ];
 }
 
