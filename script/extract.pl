@@ -28,7 +28,7 @@ if($tar_filename =~ /\.xz$/)
   my $new = $tar_filename;
   $new =~ s/\.xz$//;
 
-  system 'xz', $tar_filename;
+  system 'xz', '-d', $tar_filename;
   die "failed to xz" if $?;
   
   $tar_filename = $new;
