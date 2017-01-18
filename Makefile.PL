@@ -35,7 +35,7 @@ my %args = (
     'HTTP::Tiny'           => '0.044',
     'Archive::Tar'         => '2.24',
     'JSON::PP'             => '2.27400',
-    'IO::Uncompress::UnXz' => '2.070',
+    'Alien::xz'            => '0.01',
   },
   PREREQ_PM => {
     'File::ShareDir' => '1.102',
@@ -116,7 +116,7 @@ print "install type: $install_type\n";
 
 if($install_type eq 'system')
 {
-  delete $args{BUILD_REQUIRES}->{$_} for qw( HTTP::Tiny Archive::Tar IO::Uncompress::UnXz );
+  delete $args{BUILD_REQUIRES}->{$_} for qw( HTTP::Tiny Archive::Tar Alien::xz );
 }
 
 my %fallback = (

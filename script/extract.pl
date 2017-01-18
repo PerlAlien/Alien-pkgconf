@@ -4,6 +4,8 @@ use File::Spec;
 use Archive::Tar;
 use File::Path qw( rmtree mkpath );
 use JSON::PP qw( encode_json decode_json );
+use Alien::xz;
+use Env qw( @PATH );
 
 my $status_filename = File::Spec->catfile('_alien', '03extract.json');
 exit if -e $status_filename;
@@ -20,11 +22,15 @@ if($tar_filename =~ /\.xz$/)
 {
   # This module has a big warning not to use it in
   # production code.  So.  Yeah don't do that.
-  require IO::Uncompress::UnXz;
+  require Alien::xz;
+  unshift @PATH, Alien::xz->bin_dir;
+
   my $new = $tar_filename;
   $new =~ s/\.xz$//;
-  IO::Uncompress::UnXz::unxz($tar_filename, $new);
-  die "unable to decompress $tar_filename" unless -f $new;
+
+  system 'xz', $tar_filename;
+  die "failed to xz" if $?;
+  
   $tar_filename = $new;
 }
 
