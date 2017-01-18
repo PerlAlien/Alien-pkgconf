@@ -148,7 +148,21 @@ sub install_type
   _config->{install_type};
 }
 
-sub alien_helper { {} }
+=head1 HELPERS
+
+=head2 pkgconf
+
+ %{pkgconf}
+
+The name of the C<pkgconf> binary.  This is usually just C<pkgconf>.
+
+=cut
+
+sub alien_helper {
+  return {
+    pkgconf => sub { 'pkgconf' },
+  }
+}
 
 1;
 

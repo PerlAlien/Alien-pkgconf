@@ -16,4 +16,5 @@ script/probe.pl
 script/stage.pl
 script/system.pl
 t/00_diag.t
+t/helper.t
 t/xs.t
