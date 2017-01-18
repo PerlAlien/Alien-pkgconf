@@ -4,6 +4,22 @@ use Config;
 use File::Spec;
 use File::Path qw( rmtree );
 use JSON::PP qw( encode_json decode_json );
+use if $^O eq 'MSWin32', 'Alien::MSYS';
+use Env qw( @PATH );
+
+unshift @PATH, Alien::MSYS->msys_path;
+
+sub _catdir
+{
+  my $path = File::Spec->catdir(@_);
+  $path =~ s{\\}{/}g if $^O eq 'MSWin32';
+  $path;
+}
+
+sub _rootdir
+{
+  $^O eq 'MSWin32' ? () : File::Spec->rootdir;
+}
 
 my $type = shift @ARGV;
 
@@ -32,7 +48,7 @@ my $probe = do {
   $json;
 };
 
-$ENV{DESTDIR} = File::Spec->rel2abs(File::Spec->catdir('_alien', 'build', $type));
+$ENV{DESTDIR} = File::Spec->rel2abs(_catdir('_alien', 'build', $type));
 
 print "destd $ENV{DESTDIR}\n";
 
@@ -48,7 +64,7 @@ sub run
 my @prefix = @{ $probe->{prefix} };
 my @configure_flags = (
   '--with-pic',
-  '--prefix=' . File::Spec->catdir(File::Spec->rootdir, @prefix),
+  '--prefix=' . _catdir(_rootdir, @prefix),
   '--with-pkg-config-dir='    .  join($Config{path_sep}, @{ $probe->{pkg_config_dir}     }),
   '--with-system_libdir='     .  join($Config{path_sep}, @{ $probe->{system_libdir}      }),
   '--with-system_includedir=' .  join($Config{path_sep}, @{ $probe->{system_includedir}  }),
@@ -63,7 +79,7 @@ if($type eq 'static')
 elsif($type eq 'dll')
 {
   unshift @configure_flags,
-    '--libdir=' . File::Spec->catdir(File::Spec->rootdir, @prefix, 'dll'),
+    '--libdir=' . _catdir(_rootdir, @prefix, 'dll'),
     '--enable-shared',
     '--disable-static';
 }
@@ -90,10 +106,10 @@ if($type eq 'dll')
 
 foreach my $cleanup (@cleanup)
 {
-  rmtree(File::Spec->catdir($ENV{DESTDIR}, @prefix, @$cleanup), 0, 0);
+  rmtree(_catdir($ENV{DESTDIR}, @prefix, @$cleanup), 0, 0);
 }
 
-chdir(File::Spec->catdir(File::Spec->updir, File::Spec->updir, File::Spec->updir));
+chdir(_catdir(File::Spec->updir, File::Spec->updir, File::Spec->updir));
 
 my $fh;
 open($fh, '>', $status_filename) || die "unable to write $status_filename $!";

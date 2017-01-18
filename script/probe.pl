@@ -12,6 +12,7 @@ my $archlib = do {
   die "invoke from makefile" unless $type && $perl && $site;
   $type eq 'perl' ? $perl : $type eq 'site' ? $site : $type eq 'vendor' ? $vendor : die "illegal INSTALLDIRS ($type)";
 };
+$archlib =~ s{\\}{/}g if $^O eq 'MSWin32';
 my @prefix = ($archlib, qw( auto share dist Alien-pkgconf ));
 
 my %status = (
@@ -201,12 +202,41 @@ elsif($^O eq 'cygwin')
   )];
 }
 
-else
+elsif($^O eq 'MSWin32')
 {
-  die "do not know enough about this OS to probe for correct paths";
+  if($Config::Config{myuname} =~ /strawberry-perl/)
+  {
+    my($vol, $dir, $file) = File::Spec->splitpath($^X);
+    my @dirs = File::Spec->splitdir($dir);
+    splice @dirs, -3;
+    my $path = (File::Spec->catdir($vol, @dirs, qw( c lib pkgconfig )));
+    $path =~ s{\\}{/}g;
+    $status{pkg_config_dir} = [
+      $path,
+    ];
+    $status{system_libdir}     = [
+      '/mingw/lib', 
+      '/mingw/lib/pkgconfig/../../lib',
+    ];
+    $status{system_includedir} = [
+      '/mingw/include',
+      '/mingw/lib/pkgconfig/../../include',
+    ];
+  }
+  else
+  {
+    die "do not know enough please open ticket: https://github.com/plicease/Alien-pkgconf/issues";
+  }
 }
 
-unshift @{ $status{pkg_config_dir} }, File::Spec->catdir(@prefix, 'lib', 'pkgconfig');
+else
+{
+  die "do not know enough about this OS to probe for correct paths.  Please open a ticket https://github.com/plicease/Alien-pkgconf/issues";
+}
+
+my $my_pkg_config_dir = File::Spec->catdir(@prefix, 'lib', 'pkgconfig');
+$my_pkg_config_dir =~ s{\\}{/}g if $^O eq 'MSWin32';
+unshift @{ $status{pkg_config_dir} }, $my_pkg_config_dir;
 
 mkdir '_alien' unless -d '_alien';
 open my $fh, '>', $status_filename;

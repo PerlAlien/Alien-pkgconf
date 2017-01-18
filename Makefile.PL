@@ -119,6 +119,11 @@ if($install_type eq 'system')
   delete $args{BUILD_REQUIRES}->{$_} for qw( HTTP::Tiny Archive::Tar Alien::xz );
 }
 
+if($^O eq 'MSWin32' && $install_type eq 'share')
+{
+  $args{BUILD_REQUIRES}->{'Alien::MSYS'} = '0.07';
+}
+
 my %fallback = (
   %{ $args{TEST_REQUIRES} },
   %{ $args{BUILD_REQUIRES} },
