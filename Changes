@@ -1,5 +1,7 @@
 Revision history for Alien-pkgconf
 
+  - Better detection support for platforms: dragonflybsd
+
 0.04 2017-01-18 06:49:45 -0500
   - Better detection support for platforms: cygwin, netbsd, openbsd
   - Use Alien::xz under share install for better decompression reliability

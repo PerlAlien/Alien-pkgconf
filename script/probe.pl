@@ -186,7 +186,7 @@ elsif($^O =~ /^(gnukfreebsd|linux)$/ && -r "/etc/debian_version")
   }
 }
 
-elsif($^O eq 'freebsd')
+elsif($^O eq 'freebsd' || $^O eq 'dragonfly')
 {
   $status{pkg_config_dir} = [
     "/usr/local/libdata/pkgconfig",
