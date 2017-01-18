@@ -229,6 +229,16 @@ elsif($^O eq 'MSWin32')
   }
 }
 
+elsif($^O eq 'netbsd')
+{
+  $status{pkg_config_dir} = [qw(
+    /usr/pkg/lib/pkgconfig
+    /usr/pkg/share/pkgconfig
+    /usr/X11R7/lib/pkgconfig
+    /usr/lib/pkgconfig
+  )];
+}
+
 else
 {
   die "do not know enough about this OS to probe for correct paths.  Please open a ticket https://github.com/plicease/Alien-pkgconf/issues";
