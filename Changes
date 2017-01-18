@@ -1,5 +1,6 @@
 Revision history for Alien-pkgconf
 
+0.05 2017-01-18 08:26:36 -0500
   - Better detection support for platforms: dragonflybsd
 
 0.04 2017-01-18 06:49:45 -0500
