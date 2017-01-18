@@ -7,7 +7,7 @@ use JSON::PP qw( encode_json decode_json );
 use if $^O eq 'MSWin32', 'Alien::MSYS';
 use Env qw( @PATH );
 
-unshift @PATH, Alien::MSYS->msys_path;
+unshift @PATH, Alien::MSYS->msys_path if $^O eq 'MSWin32';
 
 sub _catdir
 {
@@ -31,6 +31,20 @@ unless(defined $type && $type =~ /^(static|dll)$/)
 
 my $status_filename = File::Spec->catfile('_alien', "04build_$type.json");
 exit if -e $status_filename;
+
+if($type eq 'dll')
+{
+  # This IF is the logic we use to determine if we should skip the
+  # dynamic lib build.  For example if we know it is unsupported.
+  if($^O eq 'cygwin')
+  {
+    my $fh;
+    open($fh, '>', $status_filename) || die "unable to write $status_filename $!";
+    print $fh encode_json({ skip => 1 });
+    close $fh;
+    exit;
+  }
+}
 
 my $src_dir = do {
   my $fn = File::Spec->catfile('_alien', '03extract.json');
@@ -113,5 +127,5 @@ chdir(_catdir(File::Spec->updir, File::Spec->updir, File::Spec->updir));
 
 my $fh;
 open($fh, '>', $status_filename) || die "unable to write $status_filename $!";
-print $fh encode_json({ destdir => $ENV{DESTDIR}, prefix => \@prefix });
+print $fh encode_json({ destdir => $ENV{DESTDIR}, prefix => \@prefix, skip => 0 });
 close $fh;

@@ -21,6 +21,8 @@ foreach my $type (qw( dll static ))
     close $fh;
     $json;
   };
+  
+  next if $build->{skip};
 
   recurse(
     File::Spec->catdir($build->{destdir}, @{ $build->{prefix} }),
