@@ -1,5 +1,9 @@
 Revision history for Alien-pkgconf
 
+0.04 2017-01-18 06:49:45 -0500
+  - Better detection support for platforms: cygwin, netbsd, openbsd
+  - Use Alien::xz under share install for better decompression reliability
+
 0.03 2017-01-01 11:24:51 -0500
   - Fixed bug when installing on Perl 5.8/5.10
 
