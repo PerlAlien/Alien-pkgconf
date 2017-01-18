@@ -1,5 +1,6 @@
 Revision history for Alien-pkgconf
 
+0.06 2017-01-18 15:56:22 -0500
   - Added %{pkgconf} helper
   - Better detection support for platforms: darwin / OS X
 
