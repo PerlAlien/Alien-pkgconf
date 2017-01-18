@@ -47,6 +47,12 @@ METHODS
 
     The type of install, should be either "share" or "system".
 
+HELPERS
+  pkgconf
+     %{pkgconf}
+
+    The name of the "pkgconf" binary. This is usually just "pkgconf".
+
 SEE ALSO
     PkgConfig::LibPkgConf
 
