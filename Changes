@@ -1,5 +1,6 @@
 Revision history for Alien-pkgconf
 
+0.07 2017-01-22 02:21:48 -0500
   - Require libpkgconf 1.2.0 or better, as the API
     changed at that point.
 
