@@ -1,5 +1,8 @@
 Revision history for Alien-pkgconf
 
+  - Require libpkgconf 1.2.0 or better, as the API
+    changed at that point.
+
 0.06 2017-01-18 15:56:22 -0500
   - Added %{pkgconf} helper
   - Better detection support for platforms: darwin / OS X
