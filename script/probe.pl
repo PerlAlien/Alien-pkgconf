@@ -186,6 +186,25 @@ elsif($^O =~ /^(gnukfreebsd|linux)$/ && -r "/etc/debian_version")
   }
 }
 
+elsif($^O eq 'linux' && -r "/etc/redhat-release")
+{
+  if(-d "/usr/lib64/pkgconfig")
+  {
+    $status{pkg_config_dir}    = [
+      '/usr/lib64/pkgconfig',
+      '/usr/share/pkgconfig',
+    ];
+    $status{system_libdir}     = ['/usr/lib64'];
+  }
+  else
+  {
+    $status{pkg_config_dir}    = [
+      '/usr/lib/pkgconfig',
+      '/usr/share/pkgconfig',
+    ];
+  }
+}
+
 elsif($^O eq 'freebsd' || $^O eq 'dragonfly')
 {
   $status{pkg_config_dir} = [
