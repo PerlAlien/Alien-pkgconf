@@ -25,11 +25,11 @@ if($ENV{ALIEN_INSTALL_TYPE} eq 'share')
   run './configure';
   run 'make dist';
   
-  my $tarball = bsd_glob '*.tar.xz';
-  run 'xz', '-d', $tarball;
-  $tarball =~ s/\.xz$//;
-  run 'gzip', $tarball;
-  $tarball .= ".gz";
+  my $tarball = bsd_glob '*.tar.gz';
+  #run 'xz', '-d', $tarball;
+  #$tarball =~ s/\.xz$//;
+  #run 'gzip', $tarball;
+  #$tarball .= ".gz";
   rename $tarball => 'pkgconf.tar.gz';
   $tarball = 'pkgconf.tar.gz';
 }
