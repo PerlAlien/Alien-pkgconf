@@ -4,7 +4,7 @@ use File::Spec;
 use Archive::Tar;
 use File::Path qw( rmtree mkpath );
 use JSON::PP qw( encode_json decode_json );
-use Alien::xz;
+#use Alien::xz;
 use Env qw( @PATH );
 
 my $status_filename = File::Spec->catfile('_alien', '03extract.json');
@@ -18,21 +18,21 @@ my $tar_filename = do {
   $json->{filename};
 };
 
-if($tar_filename =~ /\.xz$/)
-{
-  # This module has a big warning not to use it in
-  # production code.  So.  Yeah don't do that.
-  require Alien::xz;
-  unshift @PATH, Alien::xz->bin_dir;
-
-  my $new = $tar_filename;
-  $new =~ s/\.xz$//;
-
-  system 'xz', '-d', $tar_filename;
-  die "failed to xz" if $?;
-  
-  $tar_filename = $new;
-}
+#if($tar_filename =~ /\.xz$/)
+#{
+#  # This module has a big warning not to use it in
+#  # production code.  So.  Yeah don't do that.
+#  require Alien::xz;
+#  unshift @PATH, Alien::xz->bin_dir;
+#
+#  my $new = $tar_filename;
+#  $new =~ s/\.xz$//;
+#
+#  system 'xz', '-d', $tar_filename;
+#  die "failed to xz" if $?;
+#  
+#  $tar_filename = $new;
+#}
 
 my $tar = Archive::Tar->new;
 $tar->read($tar_filename);

@@ -35,7 +35,9 @@ my %args = (
     'HTTP::Tiny'           => '0.044',
     'Archive::Tar'         => '2.24',
     'JSON::PP'             => '2.27400',
-    'Alien::xz'            => '0.01',
+    # as of 1.2.1 upstream provides .gz
+    # packages again
+    #'Alien::xz'            => '0.01',
   },
   PREREQ_PM => {
     'File::ShareDir' => '1.102',

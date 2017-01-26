@@ -69,7 +69,10 @@ sub extcmp
   my($a,$b) = @_;
   # prefer .gz, then .bz2, finally .xz
   my %ext = (
-    xz  => 1,
+    # as of 1.2.1 pkgconf comes as a .gz
+    # again, meaning we shouldn't need
+    # Alien::xz anymore.
+    #xz  => 1,
     bz2 => 2,
     gz  => 3,
   );
