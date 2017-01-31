@@ -6,7 +6,7 @@ use JSON::PP ();
 use File::Spec;
 use File::ShareDir ();
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 
 =head1 NAME
 
