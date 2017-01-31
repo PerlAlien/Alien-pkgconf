@@ -56,6 +56,11 @@ my %args = (
   
 );
 
+if($^O eq 'cygwin')
+{
+  $args{BUILD_REQUIRES}->{'Alien::patch'} = '0.09';
+}
+
 my($dll) = eval {
   require FFI::CheckLib;
   FFI::CheckLib::find_lib_or_die(

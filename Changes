@@ -1,5 +1,6 @@
 Revision history for Alien-pkgconf
 
+  - patch pkgconf-1.2.1 on cygwin for path_relocate bug
   - No longer require Alien::xz, as pkgconf is distributed as .tar.gz again
 
 0.08 2017-01-22 11:47:10 -0500

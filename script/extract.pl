@@ -44,6 +44,18 @@ mkpath $src_dir, 0, 0700;
 print "untar $tar_filename\n";
 chdir($src_dir) || die "unable to chdir $!";
 $tar->extract;
+
+if(-d "pkgconf-1.2.1" && $^O eq 'cygwin')
+{
+  chdir 'pkgconf-1.2.1';
+  require Alien::patch;
+  local $ENV{PATH} = $ENV{PATH};
+  unshift @PATH, Alien::patch->bin_dir;
+  system("@{[ Alien::patch->exe ]} -p1 < ../../../patch/pkgconf-cygwin-1.2.1.diff");
+  die "unable to patch" if $?;
+  chdir '..';
+}
+
 chdir(File::Spec->catdir(File::Spec->updir, File::Spec->updir));
 
 my $filename = do {

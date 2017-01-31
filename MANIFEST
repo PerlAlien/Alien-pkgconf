@@ -7,6 +7,7 @@ maint/releaseprep
 maint/travis
 Makefile.PL
 MANIFEST			This list of files
+patch/pkgconf-cygwin-1.2.1.diff
 README
 script/build.pl
 script/clean.pl
