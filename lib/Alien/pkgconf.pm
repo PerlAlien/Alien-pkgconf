@@ -174,6 +174,13 @@ sub alien_helper {
 
 =back
 
+=head1 PLATFORM NOTES
+
+=head2 Solaris
+
+You may need to have the GNU version of nm installed, which comes
+with GNU binutils.
+
 =head1 ACKNOWLEDGMENTS
 
 Thanks to the C<pkgconf> developers for their efforts:

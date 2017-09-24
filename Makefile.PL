@@ -56,7 +56,7 @@ my %args = (
   
 );
 
-if($^O eq 'cygwin')
+if($^O eq 'cygwin' || $^O eq 'solaris')
 {
   $args{BUILD_REQUIRES}->{'Alien::patch'} = '0.09';
 }
