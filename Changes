@@ -1,5 +1,7 @@
 Revision history for Alien-pkgconf
 
+  - Require pkgconf 1.5.0
+
 0.11 2017-12-27 09:33:28 -0500
   - Require pkgconf 1.3.90
   - patch pkgconf-1.3.9 on solaris for compiler flags
