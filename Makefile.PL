@@ -21,7 +21,7 @@ my %args = (
   MIN_PERL_VERSION   => '5.008001',
   NAME               => 'Alien::pkgconf',
   VERSION_FROM       => 'lib/Alien/pkgconf.pm',
-  
+
   CONFIGURE_REQUIRES => {
     'ExtUtils::MakeMaker' => 0,
     'JSON::PP'            => '2.27400',
@@ -42,7 +42,7 @@ my %args = (
   PREREQ_PM => {
     'File::ShareDir' => '1.102',
   },
-  
+
   META_MERGE => {
     'meta-spec' => { version => 2 },
     resources => {
@@ -53,7 +53,7 @@ my %args = (
     },
     dynamic_config => 1,
   },
-  
+
 );
 
 if($^O eq 'cygwin' || $^O eq 'solaris')
@@ -75,7 +75,7 @@ rmtree '_alien', 0, 0 if -d '_alien';
 eval {
 
   die "ALIEN_FORCE" if $ENV{ALIEN_FORCE};
-  die "ALIEN_INSTALL_TYPE" if defined $ENV{ALIEN_INSTALL_TYPE} 
+  die "ALIEN_INSTALL_TYPE" if defined $ENV{ALIEN_INSTALL_TYPE}
                            && $ENV{ALIEN_INSTALL_TYPE} eq 'share';
 
   system 'pkgconf', '--atleast-version=1.3.90', 'libpkgconf';
@@ -103,7 +103,7 @@ eval {
     ($dll ? (dll => $dll ) : ()),
   });
   close $fh;
-  
+
   $install_type = 'system';
 
 };
