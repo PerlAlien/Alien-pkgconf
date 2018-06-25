@@ -28,7 +28,7 @@ my %args = (
   },
   TEST_REQUIRES      => {
     'Test2'        => '1.302073',
-    'Test2::Suite' => '0.000065',
+    'Test2::V0'    => '0.000065',
     'Test::Alien'  => '0.08',
   },
   BUILD_REQUIRES => {
@@ -124,6 +124,11 @@ print "install type: $install_type\n";
 if($install_type eq 'system')
 {
   delete $args{BUILD_REQUIRES}->{$_} for qw( HTTP::Tiny Archive::Tar Alien::xz );
+}
+elsif($install_type eq 'share')
+{
+  $args{BUILD_REQUIRES}->{'IO::Socket::SSL'} = 1.56;
+  $args{BUILD_REQUIRES}->{'Net::SSLeay'}     = 1.49;
 }
 
 if($^O eq 'MSWin32' && $install_type eq 'share')
