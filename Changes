@@ -1,5 +1,8 @@
 Revision history for Alien-pkgconf
 
+  - Move to Perl5-Alien org
+  - Fix repo metadata for repository
+
 0.15 2018-09-02 16:04:15 -0400
   - Better probe on OS X
 
