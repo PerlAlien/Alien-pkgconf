@@ -91,7 +91,7 @@ sub libs
 
  my($dll) = Alien::pkgconf->dynamic_libs;
 
-The C<.so>, C<.dll> or <.dynlib> shared or dynamic library
+The C<.so>, C<.dll> or C<.dynlib> shared or dynamic library
 which can be used via FFI.
 
 =cut
