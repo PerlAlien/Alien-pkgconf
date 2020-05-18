@@ -29,6 +29,7 @@ jobs:
     - env: CIP_TAG=5.12
     - env: CIP_TAG=5.10
     - env: CIP_TAG=5.8
+    - env: CIP_TAG=5.30-alpine3.9
   allow_failures:
     - env: CIP_TAG=5.18
     - env: CIP_TAG=5.16
