@@ -6,7 +6,7 @@ use JSON::PP ();
 use File::Spec;
 use File::ShareDir ();
 
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 =head1 NAME
 
@@ -190,6 +190,10 @@ L<https://github.com/pkgconf/pkgconf/graphs/contributors>
 =head1 AUTHOR
 
 Graham Ollis
+
+Contributors:
+
+Thibault Duponchelle (tib)
 
 =head1 COPYRIGHT AND LICENSE
 
