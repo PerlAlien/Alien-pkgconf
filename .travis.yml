@@ -30,6 +30,7 @@ jobs:
     - env: CIP_TAG=5.10
     - env: CIP_TAG=5.8
     - env: CIP_TAG=5.30-alpine3.9
+    - env: CIP_TAG=5.30-fedora29
   allow_failures:
     - env: CIP_TAG=5.18
     - env: CIP_TAG=5.16
