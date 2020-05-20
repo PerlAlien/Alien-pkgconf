@@ -9,7 +9,7 @@ BEGIN {
   }
 }
 
-use ExtUtils::MakeMaker;
+use ExtUtils::MakeMaker 6.98;
 use File::Path qw( rmtree );
 use Config;
 
