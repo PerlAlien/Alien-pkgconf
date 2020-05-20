@@ -23,7 +23,7 @@ my %args = (
   VERSION_FROM       => 'lib/Alien/pkgconf.pm',
 
   CONFIGURE_REQUIRES => {
-    'ExtUtils::MakeMaker' => 0,
+    'ExtUtils::MakeMaker' => '6.98',
     'JSON::PP'            => '2.27400',
   },
   TEST_REQUIRES      => {
