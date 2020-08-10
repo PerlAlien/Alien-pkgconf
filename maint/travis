@@ -24,7 +24,7 @@ if($ENV{ALIEN_INSTALL_TYPE} eq 'share')
   run './autogen.sh';
   run './configure';
   run 'make dist';
-  
+
   my $tarball = bsd_glob '*.tar.gz';
   #run 'xz', '-d', $tarball;
   #$tarball =~ s/\.xz$//;
@@ -39,8 +39,8 @@ elsif($ENV{ALIEN_INSTALL_TYPE} eq 'system')
   chdir '/tmp/pkgconf/src/';
   run './autogen.sh';
   run './configure',
-    '--prefix=/tmp/pkgconf', 
-    '--with-pic', 
+    '--prefix=/tmp/pkgconf',
+    '--with-pic',
     '--disable-shared',
     '--with-pkg-config-dir=/tmp/pkgconf/lib/pkgconfig',
     '--with-system-libdir=/usr/lib',
