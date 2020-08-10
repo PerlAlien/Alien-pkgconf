@@ -97,14 +97,14 @@ $url = do {
     push @list, [ $path, \@version ];
   }
 
-  ($filename) = reverse 
-                  map { $_->[0] } 
-                  sort { 
+  ($filename) = reverse
+                  map { $_->[0] }
+                  sort {
                     vercmp($a->[1], $b->[1]) || extcmp($a->[0], $b->[0]);
                   } @list;
 
   die "unable to find filename in HTML" unless $filename;
-  
+
   "$url/$filename";
 };
 

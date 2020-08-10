@@ -48,8 +48,8 @@ my %args = (
     resources => {
       repository => {
         type => 'git',
-        url  => "http://github.com/Perl5-Alien/Alien-pkgconf.git",
-        web  => "http://github.com/Perl5-Alien/Alien-pkgconf",
+        url  => "http://github.com/PerlAlien/Alien-pkgconf.git",
+        web  => "http://github.com/PerlAlien/Alien-pkgconf",
       },
       bugtracker => {
         web  => 'https://github.com/PerlPkgConfig/perl-PkgConfig/issues',
