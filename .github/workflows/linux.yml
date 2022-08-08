@@ -17,10 +17,11 @@ jobs:
       fail-fast: false
       matrix:
         cip:
-          - tag: "5.35"
+          - tag: "5.37"
+          - tag: "5.36"
+          - tag: "5.36-alpine3.16"
+          - tag: "5.36-fedora36"
           - tag: "5.34"
-          - tag: "5.34-alpine3.11"
-          - tag: "5.34-fedora34"
           - tag: "5.32"
           - tag: "5.30"
           - tag: "5.28"
