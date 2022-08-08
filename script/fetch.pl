@@ -94,6 +94,8 @@ $url = do {
     my @version = split /\./, $2;
     push @version, 0, 0 if @version == 1;
     push @version, 0    if @version == 2;
+    next if $version[0] >= 2;
+    next if $version[0] == 1 && $version[1] >= 9;
     push @list, [ $path, \@version ];
   }
 
