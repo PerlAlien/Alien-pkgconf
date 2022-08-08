@@ -84,7 +84,7 @@ eval {
   die "ALIEN_INSTALL_TYPE" if defined $ENV{ALIEN_INSTALL_TYPE}
                            && $ENV{ALIEN_INSTALL_TYPE} eq 'share';
 
-  system 'pkgconf', '--atleast-version=1.5.2', 'libpkgconf';
+  system 'pkgconf', '--atleast-version=1.5.2', '--max-version=1.8.0', 'libpkgconf';
   die "no pkgconf" if $?;
   my $cflags = `pkgconf --cflags libpkgconf`;
   die "getting cflags" if $?;
