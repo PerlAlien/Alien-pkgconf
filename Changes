@@ -1,5 +1,6 @@
 Revision history for Alien-pkgconf
 
+0.19 2022-10-24 11:36:33 -0600
   - Improve detection logic: Amazon Linux should now be recognized as
     RedHat like (gh#15, gh#16)
 
