@@ -28,16 +28,16 @@ my %status = (
 $status{system_libdir}     = ['/usr/lib'];
 $status{system_includedir} = ['/usr/include'];
 
-sub is_solaris      { !! $^O eq 'solaris'                                           }
-sub is_linux_gentoo { !! $^O eq 'linux' && -f '/etc/gentoo-release'                 }
-sub is_linux_alpine { !! $^O eq 'linux' && -f '/etc/alpine-release'                 }
-sub is_linux_debian { !! $^O =~ /^(gnukfreebsd|linux)$/ && -r "/etc/debian_version" }
-sub is_freebsd      { !! $^O eq 'freebsd' || $^O eq 'dragonfly'                     }
-sub is_cygwin       { !! $^O eq 'cygwin'                                            }
-sub is_windows      { !! $^O eq 'MSWin32'                                           }
-sub is_netbsd       { !! $^O eq 'netbsd'                                            }
-sub is_openbsd      { !! $^O eq 'openbsd'                                           }
-sub is_macos        { !! $^O eq 'darwin'                                            }
+sub is_solaris      { !! ($^O eq 'solaris'                                           ) }
+sub is_linux_gentoo { !! ($^O eq 'linux' && -f '/etc/gentoo-release'                 ) }
+sub is_linux_alpine { !! ($^O eq 'linux' && -f '/etc/alpine-release'                 ) }
+sub is_linux_debian { !! ($^O =~ /^(gnukfreebsd|linux)$/ && -r "/etc/debian_version" ) }
+sub is_freebsd      { !! ($^O eq 'freebsd' || $^O eq 'dragonfly'                     ) }
+sub is_cygwin       { !! ($^O eq 'cygwin'                                            ) }
+sub is_windows      { !! ($^O eq 'MSWin32'                                           ) }
+sub is_netbsd       { !! ($^O eq 'netbsd'                                            ) }
+sub is_openbsd      { !! ($^O eq 'openbsd'                                           ) }
+sub is_macos        { !! ($^O eq 'darwin'                                            ) }
 
 sub is_linux_redhat
 {
