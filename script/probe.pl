@@ -37,7 +37,7 @@ sub is_cygwin       { !! $^O eq 'cygwin'                                        
 sub is_windows      { !! $^O eq 'MSWin32'                                           }
 sub is_netbsd       { !! $^O eq 'netbsd'                                            }
 sub is_openbsd      { !! $^O eq 'openbsd'                                           }
-sub is_macos        { !! $^O eq 'macos'                                             }
+sub is_macos        { !! $^O eq 'darwin'                                            }
 
 sub is_linux_redhat
 {
