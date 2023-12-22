@@ -52,9 +52,8 @@ my %args = (
         web  => "http://github.com/PerlAlien/Alien-pkgconf",
       },
       bugtracker => {
-        web  => 'https://github.com/PerlPkgConfig/perl-PkgConfig/issues',
+        web  => 'https://github.com/PerlAlien/Alien-pkgconf/issues',
       },
-      x_MailingList => "https://groups.google.com/forum/#!forum/perl5-alien",
       x_IRC => "irc://irc.perl.org/#native",
     },
     dynamic_config => 1,
