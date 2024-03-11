@@ -100,7 +100,7 @@ eval {
   my $status_filename = File::Spec->catfile('_alien', '05stage.json');
   mkdir '_alien' unless -d '_alien';
   open my $fh, '>', $status_filename;
-  print $fh JSON::PP::encode_json({
+  print $fh JSON::PP->new->utf8->canonical->encode({
     cflags       => $cflags,
     libs         => $libs,
     install_type => 'system',
