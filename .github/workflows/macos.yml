@@ -31,7 +31,7 @@ jobs:
       ALIEN_INSTALL_TYPE: ${{ matrix.alien.install_type }}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up Perl
         run: |
